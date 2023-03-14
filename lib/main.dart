@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grupo_empresarial_r/crearRemision.dart';
+import 'package:grupo_empresarial_r/proveedores.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // the App.build method, and use it to set our appbar title.
       //  title: Text(widget.title),
       //  ),
-      body: Center(
+      body: SingleChildScrollView(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -146,7 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const crearRemision()),
+                        // builder: (context) => const crearRemision()),
+                        builder: (context) => const provedores()),
                   );
                 },
                 style: ButtonStyle(
