@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grupo_empresarial_r/crearRemision.dart';
 import 'package:grupo_empresarial_r/proveedores.dart';
+import 'package:grupo_empresarial_r/empresas.dart';
 
 void main() {
   runApp(const MyApp());
@@ -148,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                         // builder: (context) => const crearRemision()),
-                        builder: (context) => const provedores()),
+                        builder: (context) => const empresas()),
                   );
                 },
                 style: ButtonStyle(

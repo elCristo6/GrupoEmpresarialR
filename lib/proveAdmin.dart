@@ -1,15 +1,23 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:grupo_empresarial_r/crearRemision.dart';
+import 'package:grupo_empresarial_r/nuevaSiderur.dart';
+import 'package:grupo_empresarial_r/nuevoProve.dart';
 
 // ignore: camel_case_types
-class provedores extends StatelessWidget {
-  const provedores({super.key});
+class proveAdmin extends StatefulWidget {
+  const proveAdmin({super.key});
 
+  @override
+  State<proveAdmin> createState() => _proveAdminState();
+}
+
+// ignore: camel_case_types
+class _proveAdminState extends State<proveAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 80,
+          toolbarHeight: 90,
           title: Row(
             children: [
               CircleAvatar(
@@ -26,15 +34,19 @@ class provedores extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 30),
               Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Proveedor 1',
+                    'Grupo',
                     style: TextStyle(fontSize: 30, color: Colors.black),
                   ),
-                  Text('Identificación: 123456789',
+                  Text(
+                    'Empresarial R.',
+                    style: TextStyle(fontSize: 30, color: Colors.black),
+                  ),
+                  Text('Administrador',
                       style: TextStyle(fontSize: 15, color: Colors.black)),
                 ],
               )
@@ -61,7 +73,7 @@ class provedores extends StatelessWidget {
                     width: 100,
                   ),
                   Text(
-                    'Historial de remisiones',
+                    'Lista de proveedores',
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.black,
@@ -79,11 +91,20 @@ class provedores extends StatelessWidget {
                   Column(
                     children: const [
                       Text(
-                        'FECHA',
+                        'Ultimo',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
-                          height: 1.5, //bajar texto
+                          height: 1.0, //bajar texto
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Registro',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          // height: 1.5, //bajar texto
                           fontWeight: FontWeight.bold,
                         ),
                       )
@@ -97,7 +118,7 @@ class provedores extends StatelessWidget {
                       Text(
                         'EMPRESA',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                           color: Colors.black,
                           height: 1.5, //bajar texto
                           fontWeight: FontWeight.bold,
@@ -106,14 +127,14 @@ class provedores extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    width: 55,
+                    width: 35,
                   ),
                   Column(
                     children: const [
                       Text(
-                        'CONSECUTIVO',
+                        'N° De CONSECUTIVOS',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                           color: Colors.black,
                           height: 1.5, //bajar texto
                           fontWeight: FontWeight.bold,
@@ -176,7 +197,7 @@ class provedores extends StatelessWidget {
                                 Row(
                                   children: const [
                                     Text(
-                                      'DIACO S.A',
+                                      'Proveedor 1',
                                       style: TextStyle(
                                         fontSize: 22,
                                         color: Colors.black,
@@ -204,10 +225,11 @@ class provedores extends StatelessWidget {
                           ),
                           const SizedBox(width: 40),
                           const Text(
-                            '01258',
+                            '25',
                             style: TextStyle(
                               fontSize: 35,
                               color: Colors.black,
+
                               //height: 1.5, //bajar texto
                               //fontWeight: FontWeight.bold,
                             ),
@@ -222,7 +244,7 @@ class provedores extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 400,
+                height: 300,
               ),
               TextButton.icon(
                   onPressed: () {
@@ -230,7 +252,7 @@ class provedores extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           // builder: (context) => const crearRemision()),
-                          builder: (context) => const crearRemision()),
+                          builder: (context) => const nuevoProve()),
                     );
                   },
                   icon: const Icon(Icons.add),
@@ -247,7 +269,41 @@ class provedores extends StatelessWidget {
                     ),
                   ),
                   label: const Text(
-                    'Crear remision',
+                    'Crear proveedor',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      //height: 1.5, //bajar texto
+                      //fontWeight: FontWeight.bold,
+                    ),
+                  )),
+              const SizedBox(
+                height: 10,
+              ),
+              TextButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const nuevaSiderur()),
+                      //builder: (context) => const nuevoProve()),
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(const Size(370, 50)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  label: const Text(
+                    'Crear empresa',
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,

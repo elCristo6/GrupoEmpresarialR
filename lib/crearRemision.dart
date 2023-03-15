@@ -41,7 +41,7 @@ class crearRemision extends StatelessWidget {
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Christian Gonzalez',
+                    'Proveedor 1',
                     style: TextStyle(fontSize: 30, color: Colors.black),
                   ),
                   Text('Identificación: 123456789',
@@ -675,7 +675,10 @@ class crearRemision extends StatelessWidget {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Agregar'),
+                                Text(
+                                  'Guardar',
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ],
                             ),
                           ),
