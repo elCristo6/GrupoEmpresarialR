@@ -61,41 +61,45 @@ class empresas extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Row(
-              children: [
-                const SizedBox(
-                  height: 65,
-                  width: 10,
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            // builder: (context) => const crearRemision()),
-                            builder: (context) => const proveAdmin()),
-                      );
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        const RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Color.fromARGB(255, 196, 196, 196)),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              child: Row(
+                children: [
+                  /*  const SizedBox(
+                    height: 65,
+                    width: 10,
+                  ),*/
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              // builder: (context) => const crearRemision()),
+                              builder: (context) => const proveAdmin()),
+                        );
+                      },
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Color.fromARGB(255, 196, 196, 196)),
+                          ),
                         ),
+                        minimumSize:
+                            MaterialStateProperty.all(const Size(390, 50)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 228, 226, 226)),
                       ),
-                      minimumSize:
-                          MaterialStateProperty.all(const Size(390, 50)),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 228, 226, 226)),
-                    ),
-                    child: const Text(
-                      'COOPRESUR',
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                      ),
-                    )),
-              ],
+                      child: const Text(
+                        'COOPRESUR',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                        ),
+                      )),
+                ],
+              ),
             ),
             Row(
               children: [
