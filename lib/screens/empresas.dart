@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:grupo_empresarial_r/crearRemision.dart';
-import 'package:grupo_empresarial_r/proveAdmin.dart';
-import 'package:grupo_empresarial_r/proveedores.dart';
+import 'package:grupo_empresarial_r/screens/crearRemision.dart';
+import 'package:grupo_empresarial_r/screens/proveAdmin.dart';
+import 'package:grupo_empresarial_r/screens/proveedores.dart';
 
 // ignore: camel_case_types
 class empresas extends StatelessWidget {

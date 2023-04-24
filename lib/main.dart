@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:grupo_empresarial_r/crearRemision.dart';
-import 'package:grupo_empresarial_r/proveedores.dart';
-import 'package:grupo_empresarial_r/empresas.dart';
+//import 'package:grupo_empresarial_r/screens/crearRemision.dart';
+//import 'package:grupo_empresarial_r/screens/proveedores.dart';
+import 'package:grupo_empresarial_r/screens/empresas.dart';
+import '../models/usuarios.dart';
+import '../services/usuario_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +53,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _userInput = TextEditingController();
+  final _dato2Controller = TextEditingController();
+  @override
+  void dispose() {
+    _userInput.dispose();
+    _dato2Controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -59,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    /* return Scaffold(
       // appBar: AppBar(
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
@@ -100,10 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontStyle: FontStyle.italic,
               ),
             )),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: TextField(
-                decoration: InputDecoration(
+                controller: _userInput,
+                decoration: const InputDecoration(
                     fillColor: Colors.green,
                     filled: true,
                     border: OutlineInputBorder(),
@@ -167,6 +179,77 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('INGRESAR'))
           ],
         ),
+      ),
+    ); */
+    // Crea una estructura de datos para la interfaz de usuario
+    return Scaffold(
+      // Crea una barra de herramientas en la parte superior de la pantalla
+      appBar: AppBar(
+        // Establece el título de la barra de herramientas
+        title: const Text('Lista de Usuarios'),
+      ),
+      // Crea el cuerpo de la interfaz de usuario
+      body: FutureBuilder<List<Usuario>>(
+        // Obtiene los datos de los usuarios del servicio de usuarios
+        future: UsuarioService.getUsuarios(),
+        // Crea una interfaz de usuario que muestra los usuarios
+        builder: (context, snapshot) {
+          // Comprueba si la solicitud de datos está completa
+          if (snapshot.connectionState == ConnectionState.done) {
+            // Comprueba si hay datos disponibles
+            if (snapshot.hasData) {
+              // Obtiene los datos de los usuarios
+              final usuarios = snapshot.data!;
+              // Crea una lista de vistas de los usuarios
+              return ListView.builder(
+                // Establece el número de elementos en la lista
+                itemCount: usuarios.length,
+                // Crea una vista de lista para cada usuario
+                itemBuilder: (context, index) {
+                  // Obtiene el usuario actual
+                  final usuario = usuarios[index];
+                  // Crea una lista de elementos para el usuario
+                  return ListTile(
+                    // Establece el título de la lista de elementos
+                    title: Text(usuario.name),
+                    // Establece el subtítulo de la lista de elementos
+                    subtitle: Column(
+                      // Alinea los elementos del subtítulo a la izquierda
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // Agrega los elementos del subtítulo a la lista
+                      children: [
+                        // Muestra el número de cédula del usuario
+                        Text('CC: ${usuario.cc}'),
+                        // Muestra el tipo de usuario del usuario
+                        Text('Tipo de usuario: ${usuario.userType}'),
+                        // Muestra la fecha de creación del usuario
+                        Text('Fecha de creación: ${usuario.createdAt}'),
+                        // Muestra la fecha de actualización del usuario
+                        Text('Fecha de actualización: ${usuario.updatedAt}'),
+                      ],
+                    ),
+                    // Agrega un icono de flecha a la derecha de la lista de elementos
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    // Define una función para navegar a la pantalla de detalles del usuario
+                    onTap: () {
+                      // Navega a la pantalla de detalles del usuario
+                    },
+                  );
+                },
+              );
+            } else {
+              // No hay usuarios disponibles
+              return const Center(
+                child: Text('No hay usuarios disponibles'),
+              );
+            }
+          } else {
+            // La solicitud de datos aún está en curso
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }

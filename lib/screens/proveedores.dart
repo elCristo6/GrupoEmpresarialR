@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grupo_empresarial_r/crearRemision.dart';
+import 'package:grupo_empresarial_r/screens/crearRemision.dart';
 
 // ignore: camel_case_types
 class provedores extends StatelessWidget {
