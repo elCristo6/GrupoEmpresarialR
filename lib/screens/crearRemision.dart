@@ -1,20 +1,29 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // ignore: camel_case_types
 class crearRemision extends StatelessWidget {
-  const crearRemision({super.key});
+  final int cc;
+  final String usuario;
+  final TextEditingController descripcionField = TextEditingController();
+  final TextEditingController cantidadField = TextEditingController();
+  final TextEditingController productoField = TextEditingController();
+  List<List<String>> columnasArticulos = [];
+
+  crearRemision({super.key, required this.cc, required this.usuario});
 
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     String formattedDate = '${now.day}-${now.month}-${now.year}';
-    String _selectedOption = 'Seleccione una empresa';
-    List<String> _options = [
+    String selectedOption = 'Seleccione una empresa';
+    List<String> options = [
       'Seleccione una empresa',
-      'Item 2',
-      'Item 3',
-      'Item 4'
+      'DIACO S.A',
+      'GRUPO REINA',
+      'TERIUM',
+      'PAZ DEL RIO',
+      'SIDOC'
     ];
 
     return Scaffold(
@@ -39,13 +48,14 @@ class crearRemision extends StatelessWidget {
               const SizedBox(width: 20),
               Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
-                    'Proveedor 1',
+                    usuario,
                     style: TextStyle(fontSize: 30, color: Colors.black),
                   ),
-                  Text('Identificación: 123456789',
-                      style: TextStyle(fontSize: 15, color: Colors.black)),
+                  Text('Identificación: $cc',
+                      style:
+                          const TextStyle(fontSize: 15, color: Colors.black)),
                 ],
               )
             ],
@@ -155,11 +165,11 @@ class crearRemision extends StatelessWidget {
                           height: 0,
                           color: Colors.transparent,
                         ),
-                        value: _selectedOption,
+                        value: selectedOption,
                         onChanged: (newValue) {
-                          _selectedOption = newValue!;
+                          selectedOption = newValue!;
                         },
-                        items: _options
+                        items: options
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -194,22 +204,14 @@ class crearRemision extends StatelessWidget {
                         color: Colors.grey,
                         width: 1.0,
                       )),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 0,
-                          color: Colors.transparent,
+                      child: const TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          //hintText: 'CIUDAD',
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // Define e
+                          border: OutlineInputBorder(),
                         ),
-                        value: _selectedOption,
-                        onChanged: (newValue) {
-                          _selectedOption = newValue!;
-                        },
-                        items: _options
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
                     )
                   ],
@@ -238,22 +240,14 @@ class crearRemision extends StatelessWidget {
                         color: Colors.grey,
                         width: 1.0,
                       )),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 0,
-                          color: Colors.transparent,
+                      child: const TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          //hintText: 'CIUDAD',
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // Define e
+                          border: OutlineInputBorder(),
                         ),
-                        value: _selectedOption,
-                        onChanged: (newValue) {
-                          _selectedOption = newValue!;
-                        },
-                        items: _options
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
                     )
                   ],
@@ -282,22 +276,14 @@ class crearRemision extends StatelessWidget {
                         color: Colors.grey,
                         width: 1.0,
                       )),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 0,
-                          color: Colors.transparent,
+                      child: const TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          //hintText: 'CIUDAD',
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // Define e
+                          border: OutlineInputBorder(),
                         ),
-                        value: _selectedOption,
-                        onChanged: (newValue) {
-                          _selectedOption = newValue!;
-                        },
-                        items: _options
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
                     )
                   ],
@@ -326,22 +312,14 @@ class crearRemision extends StatelessWidget {
                         color: Colors.grey,
                         width: 1.0,
                       )),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 0,
-                          color: Colors.transparent,
+                      child: const TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          //hintText: 'CIUDAD',
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // Define e
+                          border: OutlineInputBorder(),
                         ),
-                        value: _selectedOption,
-                        onChanged: (newValue) {
-                          _selectedOption = newValue!;
-                        },
-                        items: _options
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
                     )
                   ],
@@ -370,26 +348,19 @@ class crearRemision extends StatelessWidget {
                         color: Colors.grey,
                         width: 1.0,
                       )),
-                      child: DropdownButton<String>(
-                        underline: Container(
-                          height: 0,
-                          color: Colors.transparent,
+                      child: const TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          // hintText: 'CIUDAD',
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0), // Define e
+                          border: OutlineInputBorder(),
                         ),
-                        value: _selectedOption,
-                        onChanged: (newValue) {
-                          _selectedOption = newValue!;
-                        },
-                        items: _options
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 16),
                 Container(
                     height: 45,
                     decoration: const BoxDecoration(
@@ -485,12 +456,12 @@ class crearRemision extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           SizedBox(
                             height: 35,
                             child: TextField(
-                              //controller: _textFieldController1,
-                              decoration: InputDecoration(
+                              controller: productoField,
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Producto',
                                 contentPadding: EdgeInsets.symmetric(
@@ -502,8 +473,13 @@ class crearRemision extends StatelessWidget {
                           SizedBox(
                             height: 35,
                             child: TextField(
-                              //controller: _textFieldController2,
-                              decoration: InputDecoration(
+                              controller: cantidadField,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter
+                                    .digitsOnly //para que solo ingrese numeros
+                              ],
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Cantidad (KG)',
                                 contentPadding:
@@ -521,16 +497,20 @@ class crearRemision extends StatelessWidget {
                           width: 109,
                           decoration: const BoxDecoration(
                             color: Colors.green,
-
-                            //borderRadius: BorderRadius.circular(50),
                           ),
-                          //padding: const EdgeInsets.all(6.5),
                           child: IconButton(
                             icon: const Icon(Icons.add_circle_outlined),
                             color: Colors.black, // Establece el color del icono
                             // Establece el icono a mostrar
                             onPressed: () {
                               // Acción a realizar cuando se presiona el botón
+                              /*setState(() {
+                                columnasArticulos.add([
+                                  productoField.text,
+                                  cantidadField.text,
+                                  descripcionField.text
+                                ]);
+                              });*/
                             },
                           ),
                         ),
@@ -556,13 +536,13 @@ class crearRemision extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 35,
                       width: 410,
                       child: TextField(
-                        //controller: _textFieldController1,
-                        decoration: InputDecoration(
+                        controller: descripcionField,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Descripcion del articulo (Opcional)',
                           contentPadding: EdgeInsets.symmetric(

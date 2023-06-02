@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:grupo_empresarial_r/models/usuarios.dart';
+import '../services/usuario_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+// ignore: camel_case_types
 class nuevoProve extends StatelessWidget {
-  const nuevoProve({super.key});
+  nuevoProve({super.key});
+  final _newUserInput = TextEditingController();
+  final _ccInput = TextEditingController();
+
+  void crearNuevoUsuario() {
+    Usuario usuario = Usuario(
+        cc: int.parse(_ccInput.text),
+        name: _newUserInput.text,
+        pass: _ccInput.text,
+        userType: "proveedor",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now());
+
+    UsuarioService.crearUsuario(usuario).then((nuevoUsuario) {
+      // Procesar el nuevo usuario creado
+      // (por ejemplo, mostrar una notificación, navegar a otra pantalla, etc.)
+      print('Nuevo usuario creado: $nuevoUsuario');
+    }).catchError((error) {
+      // Manejar el error al crear el usuario
+      print('Error al crear el usuario: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +123,12 @@ class nuevoProve extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 35,
                       child: TextField(
-                        //controller: _textFieldController1,
-                        decoration: InputDecoration(
+                        controller: _newUserInput,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Nombre Completo',
                           contentPadding: EdgeInsets.symmetric(
@@ -135,12 +161,16 @@ class nuevoProve extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 35,
                       child: TextField(
-                        //controller: _textFieldController1,
-                        decoration: InputDecoration(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: _ccInput,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Numero de cedula',
                           contentPadding: EdgeInsets.symmetric(
@@ -159,7 +189,18 @@ class nuevoProve extends StatelessWidget {
                 width: 300,
                 child: TextButton(
                   onPressed: () {
-                    // Accion para el boton
+                    if (_newUserInput.text.isEmpty || _ccInput.text.isEmpty) {
+                      Fluttertoast.showToast(
+                        msg: 'Tienes que ingresar NOMBRE y CEDULA',
+                      );
+                    } else {
+                      crearNuevoUsuario();
+                      // Accion para el boton
+                      Fluttertoast.showToast(
+                        msg: 'USUARIO Creado Correctamente',
+                      );
+                      //rprint('Nuevo usuario creado:ss');
+                    }
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(250, 40)),

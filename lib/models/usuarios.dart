@@ -3,8 +3,8 @@ class Usuario {
   final String name;
   final String pass;
   final String userType;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Usuario({
     required this.cc,
@@ -21,8 +21,8 @@ class Usuario {
       name: json['name'],
       pass: json['pass'],
       userType: json['userType'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
   }
 
@@ -32,8 +32,8 @@ class Usuario {
       'name': name,
       'pass': pass,
       'userType': userType,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
     };
   }
 }

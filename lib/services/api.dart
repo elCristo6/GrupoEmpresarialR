@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 
 class API {
   static const String _baseUrl =
-      'http://grupoempresarialr-env-1.eba-sz7mczgn.us-east-1.elasticbeanstalk.com/';
-
+      'http://ec2-54-164-58-77.compute-1.amazonaws.com:3000/';
+  //static const String _baseUrl = 'http://localhost:3000/';
   static Future<http.Response> get(String endpoint) async {
     final url = Uri.parse(_baseUrl + endpoint);
     final response = await http.get(url);

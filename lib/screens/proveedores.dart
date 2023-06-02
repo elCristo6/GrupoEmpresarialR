@@ -3,7 +3,10 @@ import 'package:grupo_empresarial_r/screens/crearRemision.dart';
 
 // ignore: camel_case_types
 class provedores extends StatelessWidget {
-  const provedores({super.key});
+  final int cc;
+  final String usuario;
+
+  const provedores({super.key, required this.cc, required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +32,14 @@ class provedores extends StatelessWidget {
               const SizedBox(width: 20),
               Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
-                    'Proveedor 1',
-                    style: TextStyle(fontSize: 30, color: Colors.black),
+                    usuario,
+                    style: const TextStyle(fontSize: 30, color: Colors.black),
                   ),
-                  Text('Identificación: 123456789',
-                      style: TextStyle(fontSize: 15, color: Colors.black)),
+                  Text('Identificación: $cc',
+                      style:
+                          const TextStyle(fontSize: 15, color: Colors.black)),
                 ],
               )
             ],
@@ -268,7 +272,10 @@ class provedores extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           // builder: (context) => const crearRemision()),
-                          builder: (context) => const crearRemision()),
+                          builder: (context) => crearRemision(
+                                cc: cc,
+                                usuario: usuario,
+                              )),
                     );
                   },
                   icon: const Icon(Icons.add),
