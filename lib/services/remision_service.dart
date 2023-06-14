@@ -1,29 +1,65 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 import '../models/remision.dart';
+import 'api.dart';
 
-class DeliveryController {
-  // URL de tu API
-  final String url = 'http://api.miservidor.com/delivery';
+class RemisionService {
+  static const String _endpoint = 'newRemission/';
 
-  // Método para enviar la información al servidor
-  Future<bool> sendDelivery(Remision delivery) async {
+  Future<Remision> crearRemision(Remision remision) async {
     try {
-      var response = await http.post(
-        Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(delivery.toJson()),
-      );
+      final response = await API.post(_endpoint, remision.toJson());
 
-      // Aquí puedes verificar la respuesta del servidor y retornar un valor de éxito o fracaso.
-      if (response.statusCode == 200) {
-        return true;
+      if (response.statusCode == 201) {
+        final jsonData = jsonDecode(response.body);
+        return Remision.fromJson(jsonData);
       } else {
-        return false;
+        throw Exception('Error al crear la remisión');
       }
     } catch (e) {
-      print('Error: $e');
-      return false;
+      throw Exception('Error de conexión o de la API');
+    }
+  }
+
+  Future<Remision> obtenerRemision(int id) async {
+    try {
+      final response = await API.get('$_endpoint$id/');
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        return Remision.fromJson(jsonData);
+      } else {
+        throw Exception('Error al obtener la remisión');
+      }
+    } catch (e) {
+      throw Exception('Error de conexión o de la API');
+    }
+  }
+
+  Future<List<Remision>> obtenerRemisiones() async {
+    try {
+      final response = await API.get(_endpoint);
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body) as List<dynamic>;
+        return jsonData.map((json) => Remision.fromJson(json)).toList();
+      } else {
+        throw Exception('Error al obtener las remisiones');
+      }
+    } catch (e) {
+      throw Exception('Error de conexión o de la API');
+    }
+  }
+
+  Future<void> eliminarRemision(int id) async {
+    try {
+      final response = await API.delete('$_endpoint$id/');
+
+      if (response.statusCode != 204) {
+        throw Exception('Error al eliminar la remisión');
+      }
+    } catch (e) {
+      throw Exception('Error de conexión o de la API');
     }
   }
 }

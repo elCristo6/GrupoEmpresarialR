@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+//import 'package:grupo_empresarial_r/screens/nuevaSiderur.dart';
+import 'package:grupo_empresarial_r/screens/nuevo_prove.dart';
+
 import '../models/usuarios.dart';
 import '../services/usuario_service.dart';
-//import 'package:grupo_empresarial_r/screens/nuevaSiderur.dart';
-import 'package:grupo_empresarial_r/screens/nuevoProve.dart';
 
 class UsuarioScreen extends StatefulWidget {
   const UsuarioScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _UsuarioScreenState createState() => _UsuarioScreenState();
 }
 
@@ -28,7 +30,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
       });
     } catch (e) {
       // manejar excepción
-      print(e);
+      //print(e);
     }
   }
 
@@ -54,9 +56,9 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                 ),
               ),
               const SizedBox(width: 30),
-              Column(
+              const Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Grupo',
                     style: TextStyle(fontSize: 30, color: Colors.black),
@@ -84,10 +86,10 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
           ),
         ),
         body: Column(children: <Widget>[
-          Column(
+          const Column(
             children: <Widget>[
               Row(
-                children: const [
+                children: [
                   SizedBox(
                     width: 100,
                   ),
@@ -102,66 +104,69 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                   )
                 ],
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    children: const [
-                      Text(
-                        'Ultimo',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          height: 1.0, //bajar texto
-                          fontWeight: FontWeight.bold,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'Ultimo',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            height: 1.0, //bajar texto
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Registro',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          // height: 1.5, //bajar texto
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 70,
-                  ),
-                  Column(
-                    children: const [
-                      Text(
-                        'EMPRESA',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          height: 1.5, //bajar texto
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 35,
-                  ),
-                  Column(
-                    children: const [
-                      Text(
-                        'N° De CONSECUTIVOS',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          height: 1.5, //bajar texto
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                        Text(
+                          'Registro',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            // height: 1.5, //bajar texto
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'EMPRESA',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            height: 1.5, //bajar texto
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 35,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'N° CONSECUTIVOS',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            height: 1.5, //bajar texto
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -184,11 +189,11 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                   ),
                   child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         flex: 1,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               //usuario.createdAt.substring(5, 7),
                               'Enero',

@@ -1,33 +1,9 @@
+// ignore: camel_case_types
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:grupo_empresarial_r/models/usuarios.dart';
-import '../services/usuario_service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: camel_case_types
-class nuevoProve extends StatelessWidget {
-  nuevoProve({super.key});
-  final _newUserInput = TextEditingController();
-  final _ccInput = TextEditingController();
-
-  void crearNuevoUsuario() {
-    Usuario usuario = Usuario(
-        cc: int.parse(_ccInput.text),
-        name: _newUserInput.text,
-        pass: _ccInput.text,
-        userType: "proveedor",
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now());
-
-    UsuarioService.crearUsuario(usuario).then((nuevoUsuario) {
-      // Procesar el nuevo usuario creado
-      // (por ejemplo, mostrar una notificación, navegar a otra pantalla, etc.)
-      print('Nuevo usuario creado: $nuevoUsuario');
-    }).catchError((error) {
-      // Manejar el error al crear el usuario
-      print('Error al crear el usuario: $error');
-    });
-  }
+class nueva_siderur extends StatelessWidget {
+  const nueva_siderur({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +27,9 @@ class nuevoProve extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 30),
-              Column(
+              const Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Grupo',
                     style: TextStyle(fontSize: 30, color: Colors.black),
@@ -83,13 +59,13 @@ class nuevoProve extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                children: const [
+              const Row(
+                children: [
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    'NUEVO PROVEEDOR',
+                    'NUEVO EMPRESA',
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.black,
@@ -101,13 +77,13 @@ class nuevoProve extends StatelessWidget {
               const SizedBox(
                 height: 7,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    'PROVEEDOR',
+                    'Empresa',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -120,15 +96,15 @@ class nuevoProve extends StatelessWidget {
                 width: 380,
                 margin:
                     const EdgeInsets.all(3), //margen por derecha y por arriba
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 35,
                       child: TextField(
-                        controller: _newUserInput,
-                        decoration: const InputDecoration(
+                        //controller: _textFieldController1,
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Nombre Completo',
                           contentPadding: EdgeInsets.symmetric(
@@ -139,13 +115,13 @@ class nuevoProve extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    'CEDULA',
+                    'NIT',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -158,21 +134,17 @@ class nuevoProve extends StatelessWidget {
                 width: 380,
                 margin:
                     const EdgeInsets.all(3), //margen por derecha y por arriba
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 35,
                       child: TextField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        controller: _ccInput,
-                        decoration: const InputDecoration(
+                        //controller: _textFieldController1,
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Numero de cedula',
+                          labelText: 'Numero de NIT',
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 80.0), // Define el ancho deseado aquí
                         ),
@@ -189,18 +161,7 @@ class nuevoProve extends StatelessWidget {
                 width: 300,
                 child: TextButton(
                   onPressed: () {
-                    if (_newUserInput.text.isEmpty || _ccInput.text.isEmpty) {
-                      Fluttertoast.showToast(
-                        msg: 'Tienes que ingresar NOMBRE y CEDULA',
-                      );
-                    } else {
-                      crearNuevoUsuario();
-                      // Accion para el boton
-                      Fluttertoast.showToast(
-                        msg: 'USUARIO Creado Correctamente',
-                      );
-                      //rprint('Nuevo usuario creado:ss');
-                    }
+                    // Accion para el boton
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(250, 40)),
@@ -214,9 +175,9 @@ class nuevoProve extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.save_outlined),
                       SizedBox(
                         width: 20,

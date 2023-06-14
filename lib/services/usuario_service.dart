@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import '../models/usuarios.dart';
 import 'api.dart';
 
@@ -34,7 +35,7 @@ class UsuarioService {
     // Si la solicitud tuvo éxito, decodifica la respuesta JSON y crea un nuevo usuario.
     if (response.statusCode == 201) {
       final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
-      print('Nuevo usuario creado:ss');
+      //sprint('Nuevo usuario creado:ss');
       return Usuario.fromJson(jsonData);
     } else {
       // Lanza una excepción si la solicitud falló.
