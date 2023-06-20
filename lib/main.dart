@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+//import 'package:grupo_empresarial_r/screens/ejemploProveedores.dart';
+//import 'package:flutter/services.dart';
 import 'package:grupo_empresarial_r/screens/prove_admin.dart';
 import 'package:grupo_empresarial_r/screens/proveedores.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../services/usuario_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting('es');
+  runApp(MyApp());
   //runApp(proveedor_screen());
   /*runApp(ChangeNotifierProvider(
    create: (context) => ItemsProvider(),
@@ -44,6 +48,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _userInput = TextEditingController();
   final _passInput = TextEditingController();
+
   @override
   void dispose() {
     _userInput.dispose();
@@ -51,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  final passError = const SnackBar(content: Text('Contraseña Incorrecta'));
+  final camposVacios = const SnackBar(
+      content: Text('Tienes que ingresar usuario y contraseña '));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: TextField(
+                obscureText: true,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
@@ -149,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         builder: (context) =>  example()),
                   );*/
                     if (_userInput.text.isEmpty || _userInput.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(camposVacios);
                       /*Fluttertoast.showToast(
                       msg: 'Tienes que ingresar Usuario y Contraseña',
                     );*/
@@ -172,6 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     usuario: mensaje.name ?? ''),
                               ));
                         } else {
+                          ScaffoldMessenger.of(context).showSnackBar(passError);
                           /*Fluttertoast.showToast(
                           msg: mensaje.mensaje ?? '',
                         );*/

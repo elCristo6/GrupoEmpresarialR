@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import '../models/articulos.dart';
 import '../models/remision.dart';
-import 'api.dart';
+import '../models/usercc.dart';
+import '../services/api.dart';
 
 class RemisionService {
   static const String _endpoint = 'newRemission/';
@@ -21,45 +23,40 @@ class RemisionService {
     }
   }
 
-  Future<Remision> obtenerRemision(int id) async {
-    try {
-      final response = await API.get('$_endpoint$id/');
+// Este método acepta el ID de la remisión como parámetro
+  Future<List<Remision>> getRemisiones(int cc) async {
+    final response = await API.get('$_endpoint$cc/');
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> decodedResponse = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        return Remision.fromJson(jsonData);
-      } else {
-        throw Exception('Error al obtener la remisión');
-      }
-    } catch (e) {
-      throw Exception('Error de conexión o de la API');
-    }
-  }
+      final List<Remision> remisiones =
+          (decodedResponse['facturas'] as List).map((factura) {
+        final List<Articulo> articulos =
+            (factura['detailsNewRemissions'] as List).map((articulo) {
+          return Articulo.fromJson(articulo);
+        }).toList();
 
-  Future<List<Remision>> obtenerRemisiones() async {
-    try {
-      final response = await API.get(_endpoint);
+        return Remision(
+            id: factura['id'],
+            ciudad: factura['ciudad'],
+            transportador: factura['transportador'],
+            ccTransportador: factura['ccTransportador'],
+            direccion: factura['direccion'],
+            placa: factura['placa'],
+            despachado: factura['despachado'],
+            recibido: factura['recibido'],
+            totalPeso: double.parse(factura['totalPeso']),
+            empresa: factura['empresa'],
+            userCC: UserCC.fromJson(factura['userCC']
+                as String), // Aquí cambiamos UserCC para que acepte un String
+            articulos: articulos,
+            createdAt: factura['createdAt'],
+            updatedAt: factura['updatedAt']);
+      }).toList();
 
-      if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body) as List<dynamic>;
-        return jsonData.map((json) => Remision.fromJson(json)).toList();
-      } else {
-        throw Exception('Error al obtener las remisiones');
-      }
-    } catch (e) {
-      throw Exception('Error de conexión o de la API');
-    }
-  }
-
-  Future<void> eliminarRemision(int id) async {
-    try {
-      final response = await API.delete('$_endpoint$id/');
-
-      if (response.statusCode != 204) {
-        throw Exception('Error al eliminar la remisión');
-      }
-    } catch (e) {
-      throw Exception('Error de conexión o de la API');
+      return remisiones;
+    } else {
+      throw Exception('Failed to load remission');
     }
   }
 }

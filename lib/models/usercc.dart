@@ -5,7 +5,5 @@ class UserCC {
 
   Map<String, dynamic> toJson() => {'cc': cc};
 
-  factory UserCC.fromJson(Map<String, dynamic> json) => UserCC(
-        cc: json['cc'],
-      );
+  factory UserCC.fromJson(String cc) => UserCC(cc: cc);
 }

@@ -22,13 +22,24 @@ class MiFormulario extends StatefulWidget {
 class _MiFormularioState extends State<MiFormulario> {
   //List<String> articulos = [];
 
-  TextEditingController nameController = TextEditingController();
+  TextEditingController ciudadController = TextEditingController();
+  TextEditingController transportadorController = TextEditingController();
+  TextEditingController ccTransportadorController = TextEditingController();
+  TextEditingController direccionController = TextEditingController();
+  TextEditingController placaController = TextEditingController();
+  TextEditingController despachadoController = TextEditingController();
+  TextEditingController recibidoController = TextEditingController();
+
+  TextEditingController productoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController cantidadController = TextEditingController();
   List<Articulo> articulos = [];
 
+  final userNewMessage =
+      const SnackBar(content: Text('Factura creada correctamente'));
+
   void agregarArticul() {
-    String nombre = nameController.text;
+    String nombre = productoController.text;
     String descripcion = descriptionController.text;
     String peso = '${cantidadController.text} KG';
 
@@ -36,12 +47,14 @@ class _MiFormularioState extends State<MiFormulario> {
 
     setState(() {
       articulos.add(articulo);
-      nameController.clear();
+      productoController.clear();
       descriptionController.clear();
       cantidadController.clear();
     });
   }
 
+  final camposVacios =
+      const SnackBar(content: Text('Tienes que ingresar algun producto'));
   String selectedOption = 'Seleccione una empresa';
   List<String> options = [
     'Seleccione una empresa',
@@ -212,9 +225,10 @@ class _MiFormularioState extends State<MiFormulario> {
                   color: Colors.grey,
                   width: 1.0,
                 )),
-                child: const TextField(
+                child: TextField(
+                  controller: ciudadController,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.0), // Define e
                     border: OutlineInputBorder(),
@@ -242,9 +256,10 @@ class _MiFormularioState extends State<MiFormulario> {
                   color: Colors.grey,
                   width: 1.0,
                 )),
-                child: const TextField(
+                child: TextField(
+                  controller: transportadorController,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     //hintText: 'CIUDAD',
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.0), // Define e
@@ -273,9 +288,10 @@ class _MiFormularioState extends State<MiFormulario> {
                   color: Colors.grey,
                   width: 1.0,
                 )),
-                child: const TextField(
+                child: TextField(
+                  controller: ccTransportadorController,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     //hintText: 'CIUDAD',
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.0), // Define e
@@ -304,9 +320,10 @@ class _MiFormularioState extends State<MiFormulario> {
                   color: Colors.grey,
                   width: 1.0,
                 )),
-                child: const TextField(
+                child: TextField(
+                  controller: direccionController,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     //hintText: 'CIUDAD',
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.0), // Define e
@@ -335,9 +352,10 @@ class _MiFormularioState extends State<MiFormulario> {
                   color: Colors.grey,
                   width: 1.0,
                 )),
-                child: const TextField(
+                child: TextField(
+                  controller: placaController,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     // hintText: 'CIUDAD',
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.0), // Define e
@@ -445,7 +463,7 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: SizedBox(
                           height: 35,
                           child: TextField(
-                            controller: nameController,
+                            controller: productoController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Producto',
@@ -474,8 +492,10 @@ class _MiFormularioState extends State<MiFormulario> {
                           // Establece el icono a mostrar
                           onPressed: () {
                             if (cantidadController.text.isEmpty ||
-                                nameController.text.isEmpty ||
+                                productoController.text.isEmpty ||
                                 descriptionController.text.isEmpty) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(camposVacios);
                             } else {
                               agregarArticul();
                             }
@@ -577,7 +597,7 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: SizedBox(
                           height: 35,
                           child: TextField(
-                            controller: cantidadController,
+                            controller: despachadoController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Despachado por:',
@@ -615,7 +635,7 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: SizedBox(
                           height: 35,
                           child: TextField(
-                            controller: cantidadController,
+                            controller: recibidoController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Recibido por:',
@@ -654,6 +674,10 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: TextButton(
                           onPressed: () {
                             // Accion para el boton
+
+                            //_newUserInput.clear();
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(userNewMessage);
                           },
                           style: ButtonStyle(
                             minimumSize:

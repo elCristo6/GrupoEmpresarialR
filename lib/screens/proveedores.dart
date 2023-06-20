@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../models/usuarios.dart';
+import '../models/remision.dart';
 import '../screens/nueva_remision.dart';
-import '../services/usuario_service.dart';
-
+import '../services/remision_service.dart';
 // ignore: camel_case_types
+
 class proveedor_screen extends StatefulWidget {
   final int cc;
   final String usuario;
@@ -17,24 +17,22 @@ class proveedor_screen extends StatefulWidget {
 // ignore: camel_case_types
 class _proveedor_screenState extends State<proveedor_screen> {
   // ignore: unused_field
-  List<Usuario> _usuarios = [];
-
+  List<Remision> remisionList = [];
+  final remisionService = RemisionService();
   @override
   void initState() {
     super.initState();
-    _loadUsuarios();
+    loadRemisiones();
   }
 
-  Future<void> _loadUsuarios() async {
-    try {
-      final usuarios = await UsuarioService.getUsuarios();
-      setState(() {
-        _usuarios = usuarios;
-      });
-    } catch (e) {
-      // manejar excepción
-      //print(e);
-    }
+  Future<void> loadRemisiones() async {
+    // Ahora llamamos al método getRemisiones del servicio.
+    List<Remision> loadedRemisiones =
+        await remisionService.getRemisiones(widget.cc);
+
+    setState(() {
+      remisionList = loadedRemisiones;
+    });
   }
 
   @override
@@ -165,103 +163,139 @@ class _proveedor_screenState extends State<proveedor_screen> {
               ],
             ),
             Expanded(
-                child: ListView.builder(
-              itemCount: _usuarios.length,
-              itemBuilder: (context, index) {
-                final usuario = _usuarios[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 3.0, horizontal: 6.0),
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 228, 226, 226),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 196, 196, 196),
-                        width: 1.0,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                //usuario.createdAt.substring(5, 7),
-                                'Enero',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  height: 1.5, //bajar texto
-                                ),
-                              ),
-                              SizedBox(height: 2),
-                              Text(
-                                //usuario.createdAt.substring(8),
-                                '10',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.black,
-                                  //height: 1.7, //bajar texto
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+              child: ListView.builder(
+                itemCount: remisionList.length,
+                itemBuilder: (context, index) {
+                  final remision = remisionList[index];
+                  return GestureDetector(
+                    onLongPressStart: (LongPressStartDetails details) {
+                      final Offset globalPosition = details.globalPosition;
+
+                      showMenu(
+                        context: context,
+                        position: RelativeRect.fromLTRB(
+                          globalPosition.dx,
+                          globalPosition.dy,
+                          globalPosition.dx + 1,
+                          globalPosition.dy + 1,
                         ),
-                        const SizedBox(width: 32),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                usuario.name,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.black,
-                                  height: 1.7, //bajar texto
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                'NIT: ${usuario.cc}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  height: 0.9, //bajar texto
-                                  //fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Expanded(
-                          flex: 1,
-                          child: Center(
-                            child: Text(
-                              // usuario.cc.toString(),
-                              '15',
-                              style: TextStyle(
-                                fontSize: 35,
-                                color: Colors.black,
-                                //height: 1.5, //bajar texto
-                                //fontWeight: FontWeight.bold,
-                              ),
+                        items: <PopupMenuEntry>[
+                          const PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.print),
+                                SizedBox(width: 10),
+                                Text('IMPRESION')
+                              ],
                             ),
                           ),
+                          const PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.qr_code_2),
+                                SizedBox(width: 10),
+                                Text('GENERAR QR')
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 3.0, horizontal: 6.0),
+                      child: Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 228, 226, 226),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 196, 196, 196),
+                            width: 1.0,
+                          ),
                         ),
-                      ],
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    //usuario.createdAt.substring(5, 7),
+                                    'Enero',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      height: 1.5, //bajar texto
+                                    ),
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    //usuario.createdAt.substring(8),
+                                    '10',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.black,
+                                      //height: 1.7, //bajar texto
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 45),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    remision.empresa,
+                                    style: const TextStyle(
+                                      fontSize: 27,
+                                      color: Colors.black,
+                                      //height: 1.7, //bajar texto
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  // const SizedBox(height: 5),
+                                  /*Text(
+                                    'NIT: ${remision.ccTransportador}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      height: 0.9, //bajar texto
+                                      //fontWeight: FontWeight.bold,
+                                    ),
+                                  ),*/
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Center(
+                                child: Text(
+                                  // usuario.cc.toString(),
+                                  remision.id.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 28,
+                                    color: Colors.black,
+                                    height: 1.5, //bajar texto
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
-            )),
+                  );
+                },
+              ),
+            ),
             TextButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -303,7 +337,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
         ));
   }
 }
-/*
+/* 
 // ignore: camel_case_types
 class provedores extends StatelessWidget {
   final int cc;
@@ -436,129 +470,139 @@ class provedores extends StatelessWidget {
                     width: 15,
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onLongPressStart: (LongPressStartDetails details) {
-                        final RenderBox box =
-                            context.findRenderObject() as RenderBox;
-                        final Offset localPosition =
-                            box.globalToLocal(details.globalPosition);
+  child: ListView.builder(
+    itemCount: remisionList.length,
+    itemBuilder: (context, index) {
+      final remision = remisionList[index];
+      return GestureDetector(
+        onLongPressStart: (LongPressStartDetails details) {
+          final RenderBox box = context.findRenderObject() as RenderBox;
+          final Offset localPosition = box.globalToLocal(details.globalPosition);
 
-                        showMenu(
-                          context: context,
-                          position: RelativeRect.fromLTRB(
-                            localPosition.dx,
-                            localPosition.dy,
-                            localPosition.dx + 1,
-                            localPosition.dy + 1,
-                          ),
-                          items: <PopupMenuEntry>[
-                            const PopupMenuItem(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.print),
-                                  SizedBox(width: 10),
-                                  Text('IMPRESION')
-                                ],
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              child: Row(
-                                children: [
-                                  Icon(Icons.qr_code_2),
-                                  SizedBox(width: 10),
-                                  Text('GENERAR QR')
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 228, 226, 226),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 196, 196, 196),
-                            width: 1.0,
-                          ),
+          showMenu(
+            context: context,
+            position: RelativeRect.fromLTRB(
+              localPosition.dx,
+              localPosition.dy,
+              localPosition.dx + 1,
+              localPosition.dy + 1,
+            ),
+            items: <PopupMenuEntry>[
+              const PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(Icons.print),
+                    SizedBox(width: 10),
+                    Text('IMPRESION')
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(Icons.qr_code_2),
+                    SizedBox(width: 10),
+                    Text('GENERAR QR')
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
+          child: Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 228, 226, 226),
+              border: Border.all(
+                color: const Color.fromARGB(255, 196, 196, 196),
+                width: 1.0,
+              ),
+            ),
+            child: Row(
+              children: [
+                const Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        //usuario.createdAt.substring(5, 7),
+                        'Enero',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          height: 1.5, //bajar texto
                         ),
-                        child: const Row(
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Enero',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        height: 1.5, //bajar texto
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '10',
-                                      style: TextStyle(
-                                        fontSize: 35,
-                                        color: Colors.black,
-                                        height: 1, //bajar texto
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(width: 70),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'DIACO S.A',
-                                      style: TextStyle(
-                                        fontSize: 22,
-                                        color: Colors.black,
-                                        height: 1.7, //bajar texto
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'NIT: 123456789-6',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        height: 0.9, //bajar texto
-                                        //fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(width: 40),
-                            Text(
-                              '01258',
-                              style: TextStyle(
-                                fontSize: 35,
-                                color: Colors.black,
-                                //height: 1.5, //bajar texto
-                                //fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        //usuario.createdAt.substring(8),
+                        '10',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                          //height: 1.7, //bajar texto
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 32),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        remision.empresa,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          //height: 1.7, //bajar texto
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'NIT: ${remision.ccTransportador}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          height: 0.9, //bajar texto
+                          //fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      // usuario.cc.toString(),
+                      '15',
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.black,
+                        //height: 1.5, //bajar texto
+                        //fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  ),
+),
                   const SizedBox(
                     width: 15,
                   ),
@@ -570,14 +614,14 @@ class provedores extends StatelessWidget {
               TextButton.icon(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MiFormulario(),
-                          /*builder: (context) => crear_remision(
+                      context,
+                      MaterialPageRoute(
+                          //builder: (context) =>  MiFormulario(),
+                          builder: (context) => MiFormulario(
                                 cc: cc,
                                 usuario: usuario,
-                              )),*/
-                        ));
+                              )),
+                    );
                   },
                   icon: const Icon(Icons.add),
                   style: ButtonStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-//import 'package:grupo_empresarial_r/screens/nuevaSiderur.dart';
 import 'package:grupo_empresarial_r/screens/nuevo_prove.dart';
+import 'package:grupo_empresarial_r/screens/proveedores.dart';
+import 'package:intl/intl.dart';
 
 import '../models/usuarios.dart';
 import '../services/usuario_service.dart';
@@ -134,12 +135,12 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                       ],
                     ),
                     SizedBox(
-                      width: 30,
+                      width: 25,
                     ),
                     Column(
                       children: [
                         Text(
-                          'EMPRESA',
+                          'PROVEEDOR',
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.black,
@@ -150,7 +151,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                       ],
                     ),
                     SizedBox(
-                      width: 35,
+                      width: 25,
                     ),
                     Column(
                       children: [
@@ -175,97 +176,114 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
             itemCount: _usuarios.length,
             itemBuilder: (context, index) {
               final usuario = _usuarios[index];
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 228, 226, 226),
-                    border: Border.all(
-                      color: const Color.fromARGB(255, 196, 196, 196),
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              //usuario.createdAt.substring(5, 7),
-                              'Enero',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                height: 1.5, //bajar texto
-                              ),
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              //usuario.createdAt.substring(8),
-                              '10',
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.black,
-                                //height: 1.7, //bajar texto
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+              return InkWell(
+                  onTap: () {
+                    // Aquí puedes definir la acción al tocar un elemento de la lista,
+                    // como navegar a otra pantalla pasando el objeto remision
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => proveedor_screen(
+                              //builder: (context) => provedores(
+                              cc: usuario.cc ?? 0,
+                              usuario: usuario.name ?? ''),
+                        ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 3.0, horizontal: 6.0),
+                    child: Container(
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 228, 226, 226),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 196, 196, 196),
+                          width: 1.0,
                         ),
                       ),
-                      const SizedBox(width: 32),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              usuario.name,
-                              style: const TextStyle(
-                                fontSize: 22,
-                                color: Colors.black,
-                                height: 1.7, //bajar texto
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'NIT: ${usuario.cc}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                height: 0.9, //bajar texto
-                                //fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Expanded(
-                        flex: 1,
-                        child: Center(
-                          child: Text(
-                            // usuario.cc.toString(),
-                            '15',
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Colors.black,
-                              //height: 1.5, //bajar texto
-                              //fontWeight: FontWeight.bold,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  //DateFormat('dd').format(usuario.createdAt),
+                                  //usuario.createdAt.toString(),
+                                  DateFormat('MMMM', 'es')
+                                      .format(usuario.createdAt),
+                                  textAlign: TextAlign.right,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    height: 1.5, //bajar texto
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  DateFormat('dd').format(usuario.createdAt),
+                                  //   usuario.createdAt as String,
+                                  // '10',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.black,
+                                    //height: 1.7, //bajar texto
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
+                          const SizedBox(width: 32),
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  usuario.name,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    //height: 1.7, //bajar texto
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'NIT: ${usuario.cc}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    height: 0.9, //bajar texto
+                                    //fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                // usuario.cc.toString(),
+
+                                '15',
+                                style: TextStyle(
+                                  fontSize: 35,
+                                  color: Colors.black,
+                                  //height: 1.5, //bajar texto
+                                  //fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              );
+                    ),
+                  ));
             },
           )),
           TextButton.icon(

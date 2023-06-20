@@ -10,6 +10,13 @@ class nuevoProve extends StatelessWidget {
   nuevoProve({super.key});
   final _newUserInput = TextEditingController();
   final _ccInput = TextEditingController();
+  final userNewMessage =
+      const SnackBar(content: Text('Usuario creado correctamente'));
+
+  final camposVacios =
+      const SnackBar(content: Text('Debes Ingresar Usuario y Constraseña')
+          //duration: Duration(seconds: 5),
+          );
 
   void crearNuevoUsuario() {
     Usuario usuario = Usuario(
@@ -191,16 +198,15 @@ class nuevoProve extends StatelessWidget {
                 child: TextButton(
                   onPressed: () {
                     if (_newUserInput.text.isEmpty || _ccInput.text.isEmpty) {
-                      /* Fluttertoast.showToast(
-                        msg: 'Tienes que ingresar NOMBRE y CEDULA',
-                      );*/
+                      ScaffoldMessenger.of(context).showSnackBar(camposVacios);
                     } else {
                       crearNuevoUsuario();
-                      // Accion para el boton
-                      /*Fluttertoast.showToast(
-                        msg: 'USUARIO Creado Correctamente',
-                      );*/
-                      //rprint('Nuevo usuario creado:ss');
+                      _ccInput.clear();
+                      _newUserInput.clear();
+
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(userNewMessage);
+                      Navigator.pop(context);
                     }
                   },
                   style: ButtonStyle(
