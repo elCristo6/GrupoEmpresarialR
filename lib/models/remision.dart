@@ -14,8 +14,8 @@ class Remision {
   final String empresa;
   final UserCC userCC;
   final List<Articulo> articulos;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Remision({
     required this.id,
@@ -47,29 +47,28 @@ class Remision {
         'empresa': empresa,
         'userCC': userCC.toJson(),
         'articulos': articulos.map((articulo) => articulo.toJson()).toList(),
-        //'createdAt': createdAt.toIso8601String(),
-        // 'updatedAt': updatedAt.toIso8601String(),
-        'createdAt': createdAt,
-        'updatedAt': updatedAt
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
       };
 
   factory Remision.fromJson(Map<String, dynamic> json) => Remision(
-      id: json['id'],
-      ciudad: json['ciudad'],
-      transportador: json['transportador'],
-      ccTransportador: json['ccTransportador'],
-      direccion: json['direccion'],
-      placa: json['placa'],
-      despachado: json['despachado'],
-      recibido: json['recibido'],
-      totalPeso: json['totalPeso'],
-      empresa: json['empresa'],
-      userCC: UserCC.fromJson(json['userCC']),
-      articulos:
-          (json['articulos'] as List).map((i) => Articulo.fromJson(i)).toList(),
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt']
-      //createdAt: DateTime.parse(json['createdAt'] as String),
-      //updatedAt: DateTime.parse(json['updatedAt'] as String),
+        id: json['id'],
+        ciudad: json['ciudad'],
+        transportador: json['transportador'],
+        ccTransportador: json['ccTransportador'],
+        direccion: json['direccion'],
+        placa: json['placa'],
+        despachado: json['despachado'],
+        recibido: json['recibido'],
+        totalPeso: json['totalPeso'],
+        empresa: json['empresa'],
+        userCC: UserCC.fromJson(json['userCC']),
+        articulos: (json['articulos'] as List)
+            .map((i) => Articulo.fromJson(i))
+            .toList(),
+        //createdAt: json['createdAt'],
+        //updatedAt: json['updatedAt']
+        createdAt: DateTime.parse(json['createdAt'] as String),
+        updatedAt: DateTime.parse(json['updatedAt'] as String),
       );
 }

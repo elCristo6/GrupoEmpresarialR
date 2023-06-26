@@ -206,7 +206,7 @@ class nuevoProve extends StatelessWidget {
 
                       ScaffoldMessenger.of(context)
                           .showSnackBar(userNewMessage);
-                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                     }
                   },
                   style: ButtonStyle(
