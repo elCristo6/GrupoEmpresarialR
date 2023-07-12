@@ -2,7 +2,7 @@ import '../models/articulos.dart';
 import '../models/usercc.dart';
 
 class Remision {
-  final int id;
+  final int? id;
   final String ciudad;
   final String transportador;
   final String ccTransportador;
@@ -18,7 +18,7 @@ class Remision {
   final DateTime updatedAt;
 
   Remision({
-    required this.id,
+    this.id,
     required this.ciudad,
     required this.transportador,
     required this.ccTransportador,
@@ -62,7 +62,7 @@ class Remision {
         recibido: json['recibido'],
         totalPeso: json['totalPeso'],
         empresa: json['empresa'],
-        userCC: UserCC.fromJson(json['userCC']),
+        userCC: UserCC(cc: json['cc']),
         articulos: (json['articulos'] as List)
             .map((i) => Articulo.fromJson(i))
             .toList(),

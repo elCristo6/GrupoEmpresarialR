@@ -19,7 +19,7 @@ class RemisionService {
         throw Exception('Error al crear la remisión');
       }
     } catch (e) {
-      throw Exception('Error de conexión o de la API');
+      throw Exception(e);
     }
   }
 

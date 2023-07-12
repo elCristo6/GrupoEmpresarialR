@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grupo_empresarial_r/models/articulos.dart';
+import 'package:grupo_empresarial_r/models/remision.dart';
+import 'package:grupo_empresarial_r/models/usercc.dart';
 
-class Articulo {
-  final String name;
-  final String description;
-  final String peso;
-
-  Articulo(this.name, this.description, this.peso);
-}
+import '../services/remision_service.dart';
 
 class MiFormulario extends StatefulWidget {
   final int cc;
   final String usuario;
   const MiFormulario({super.key, required this.cc, required this.usuario});
-  //const MiFormulario({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _MiFormularioState createState() => _MiFormularioState();
 }
 
 class _MiFormularioState extends State<MiFormulario> {
-  //List<String> articulos = [];
+  List<Remision> remisionList = [];
+  List<Articulo> articulosList = [];
+  final remisionService = RemisionService();
+  double totalCantidad = 0;
 
   TextEditingController ciudadController = TextEditingController();
   TextEditingController transportadorController = TextEditingController();
@@ -29,32 +29,93 @@ class _MiFormularioState extends State<MiFormulario> {
   TextEditingController placaController = TextEditingController();
   TextEditingController despachadoController = TextEditingController();
   TextEditingController recibidoController = TextEditingController();
-
   TextEditingController productoController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController cantidadController = TextEditingController();
-  List<Articulo> articulos = [];
 
   final userNewMessage =
       const SnackBar(content: Text('Factura creada correctamente'));
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    loadLastRemisionId();
+  }
+
+  Future<void> crearNuevaRemision() async {
+    Remision remision = Remision(
+      ciudad: ciudadController.text,
+      transportador: transportadorController.text,
+      ccTransportador: ccTransportadorController.text,
+      direccion: direccionController.text,
+      placa: placaController.text,
+      despachado: despachadoController.text,
+      recibido: recibidoController.text,
+      totalPeso:
+          totalCantidad, // Coloca el valor correcto de acuerdo a tus necesidades
+      empresa: selectedOption,
+      userCC: UserCC(
+          cc: widget.cc
+              .toString()), // Reemplaza con la instancia adecuada de UserCC si es necesario
+      articulos:
+          articulosList, // Reemplaza con la lista de Articulo correspondiente
+      createdAt: DateTime
+          .now(), // Coloca el valor correcto de acuerdo a tus necesidades
+      updatedAt: DateTime
+          .now(), // Coloca el valor correcto de acuerdo a tus necesidades
+    );
+
+    try {
+      final nuevaRemision = await remisionService.crearRemision(remision);
+      print('Remisión creada correctamente: ${nuevaRemision.id}');
+    } catch (e) {
+      print('Error al crear la remisión: $e');
+    }
+  }
 
   void agregarArticul() {
     String nombre = productoController.text;
     String descripcion = descriptionController.text;
-    String peso = '${cantidadController.text} KG';
+    String cantidad = cantidadController.text;
+    //int cantidadInt = int.parse(cantidad); // Convertir a valor entero
 
-    Articulo articulo = Articulo(nombre, descripcion, peso);
+    Articulo articulo = Articulo(
+      material: nombre,
+      cantidad: int.parse(cantidad),
+      descripcion: descripcion,
+    );
 
     setState(() {
-      articulos.add(articulo);
+      articulosList.add(articulo);
+      totalCantidad += articulo.cantidad;
       productoController.clear();
       descriptionController.clear();
       cantidadController.clear();
     });
   }
 
+  int? ultimoIdRemision;
+
+  void loadLastRemisionId() async {
+    List<Remision> todasLasRemisiones =
+        await remisionService.getTodasLasRemisiones();
+    int ultimoId =
+        todasLasRemisiones[0].id!; // Obtiene el último ID de remisión
+
+    todasLasRemisiones.forEach((remision) {
+      if (remision.id!.compareTo(ultimoId) > 0) {
+        ultimoId = remision.id!;
+      }
+    });
+
+    setState(() {
+      ultimoIdRemision =
+          ultimoId + 1; // Incrementa el último ID de remisión por uno
+    });
+  }
+
   final camposVacios =
       const SnackBar(content: Text('Tienes que ingresar algun producto'));
+
   String selectedOption = 'Seleccione una empresa';
   List<String> options = [
     'Seleccione una empresa',
@@ -71,6 +132,7 @@ class _MiFormularioState extends State<MiFormulario> {
 
     final int cc = widget.cc;
     final String usuario = widget.usuario;
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -135,13 +197,13 @@ class _MiFormularioState extends State<MiFormulario> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
-                  //const SizedBox(width: 20),
-                  const Text(
-                    '872536',
-                    style: TextStyle(fontSize: 25, color: Colors.black),
+                  const SizedBox(width: 20),
+                  Text(
+                    //'872536',
+                    '${ultimoIdRemision ?? ''}',
+                    style: const TextStyle(fontSize: 25, color: Colors.black),
                   ),
-                  //const SizedBox(width: 10),
+                  const SizedBox(width: 20),
                   const Icon(
                     Icons.calendar_month_outlined,
                     size: 18,
@@ -392,9 +454,10 @@ class _MiFormularioState extends State<MiFormulario> {
               // const SizedBox(height: 1),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: articulos.length,
+                itemCount: articulosList.length,
                 itemBuilder: (context, index) {
-                  Articulo articulo = articulos[index];
+                  Articulo articulo = articulosList[index];
+                  //totalCantidad += articulo.cantidad;
                   return Container(
                     margin:
                         const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
@@ -410,7 +473,7 @@ class _MiFormularioState extends State<MiFormulario> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                articulo.name,
+                                articulo.material,
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 24,
@@ -419,7 +482,7 @@ class _MiFormularioState extends State<MiFormulario> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                articulo.description,
+                                articulo.descripcion,
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -438,7 +501,7 @@ class _MiFormularioState extends State<MiFormulario> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            articulo.peso,
+                            "${articulo.cantidad} kg",
                             style: const TextStyle(
                               fontSize: 25,
                               color: Colors.black,
@@ -561,16 +624,6 @@ class _MiFormularioState extends State<MiFormulario> {
                           ],
                         ),
                       ),
-
-                      /*
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        articulos.add('Artículo: ${articulos.length + 1}');
-                      });
-                    },
-                    child: Text('Agregar'),
-                  ),*/
                     ],
                   )),
               Row(
@@ -650,11 +703,11 @@ class _MiFormularioState extends State<MiFormulario> {
                         // width: 112,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 5),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Text(
-                              '1500 KG',
-                              style: TextStyle(
+                              '$totalCantidad kg',
+                              style: const TextStyle(
                                 fontSize: 25,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -674,7 +727,8 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: TextButton(
                           onPressed: () {
                             // Accion para el boton
-
+                            crearNuevaRemision();
+                            Navigator.pop(context, true);
                             //_newUserInput.clear();
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(userNewMessage);

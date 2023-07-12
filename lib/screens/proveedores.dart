@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/remision.dart';
 import '../screens/nueva_remision.dart';
 import '../services/remision_service.dart';
+
 // ignore: camel_case_types
 
 // ignore: camel_case_types
@@ -35,6 +36,21 @@ class _proveedor_screenState extends State<proveedor_screen> {
     setState(() {
       remisionList = loadedRemisiones;
     });
+  }
+
+  Future<void> navegaNewRemision() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MiFormulario(
+                cc: widget.cc,
+                usuario: widget.usuario,
+              )),
+    );
+
+    if (result == true) {
+      loadRemisiones();
+    }
   }
 
   @override
@@ -300,7 +316,9 @@ class _proveedor_screenState extends State<proveedor_screen> {
               ),
             ),
             TextButton.icon(
-                onPressed: () {
+                onPressed: navegaNewRemision,
+
+                /*  () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -310,7 +328,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                               usuario: usuario,
                             )),
                   );
-                },
+                },*/
                 icon: const Icon(Icons.add),
                 style: ButtonStyle(
                   minimumSize: MaterialStateProperty.all(const Size(370, 50)),
