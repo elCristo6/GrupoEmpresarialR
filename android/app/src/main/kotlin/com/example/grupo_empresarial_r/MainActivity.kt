@@ -1,6 +1,6 @@
-package com.example.grupo_empresarial_r
+    package com.grupo_empresarial_r
 
-import io.flutter.embedding.android.FlutterActivity
+    import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity() {
-}
+    class MainActivity: FlutterActivity() {
+    }

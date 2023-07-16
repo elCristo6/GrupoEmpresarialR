@@ -10,7 +10,7 @@ import '../services/usuario_service.dart';
 
 void main() {
   initializeDateFormatting('es');
-  runApp(MyApp());
+  runApp(const MyApp());
   //runApp(proveedor_screen());
   /*runApp(ChangeNotifierProvider(
    create: (context) => ItemsProvider(),

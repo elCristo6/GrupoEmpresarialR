@@ -61,6 +61,7 @@ class RemisionService {
   }
 
   Future<List<Remision>> getTodasLasRemisiones() async {
+    // ignore: unnecessary_string_interpolations
     final response = await API.get('$_endpoint');
 
     if (response.statusCode == 200) {

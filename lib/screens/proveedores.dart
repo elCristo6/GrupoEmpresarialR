@@ -78,11 +78,11 @@ class _proveedor_screenState extends State<proveedor_screen> {
               ),
               const SizedBox(width: 20),
               Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     usuario,
-                    style: const TextStyle(fontSize: 30, color: Colors.black),
+                    style: const TextStyle(fontSize: 22, color: Colors.black),
                   ),
                   Text('Identificación: $cc',
                       style:

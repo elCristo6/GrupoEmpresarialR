@@ -65,10 +65,11 @@ class _MiFormularioState extends State<MiFormulario> {
     );
 
     try {
+      // ignore: unused_local_variable
       final nuevaRemision = await remisionService.crearRemision(remision);
-      print('Remisión creada correctamente: ${nuevaRemision.id}');
+      //print('Remisión creada correctamente: ${nuevaRemision.id}');
     } catch (e) {
-      print('Error al crear la remisión: $e');
+      //print('Error al crear la remisión: $e');
     }
   }
 
@@ -101,6 +102,7 @@ class _MiFormularioState extends State<MiFormulario> {
     int ultimoId =
         todasLasRemisiones[0].id!; // Obtiene el último ID de remisión
 
+    // ignore: avoid_function_literals_in_foreach_calls
     todasLasRemisiones.forEach((remision) {
       if (remision.id!.compareTo(ultimoId) > 0) {
         ultimoId = remision.id!;
@@ -154,12 +156,12 @@ class _MiFormularioState extends State<MiFormulario> {
             ),
             const SizedBox(width: 20),
             Column(
-              //crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   //"El Cristo",
                   usuario,
-                  style: const TextStyle(fontSize: 30, color: Colors.black),
+                  style: const TextStyle(fontSize: 22, color: Colors.black),
                 ),
                 Text('Identificación: $cc',
                     //Text('Identificación: 1022972666',
