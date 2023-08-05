@@ -71,4 +71,14 @@ class Remision {
         createdAt: DateTime.parse(json['createdAt'] as String),
         updatedAt: DateTime.parse(json['updatedAt'] as String),
       );
+  @override
+  String toString() {
+    String articulosStr =
+        articulos.map((articulo) => articulo.toString()).join(", ");
+    /*return 'Remision NO: $id, ciudad: $ciudad, transportador: $transportador, ccTransportador: $ccTransportador, direccion: $direccion, '
+        'placa: $placa, despachado: $despachado, recibido: $recibido, totalPeso: ${totalPeso.toInt()}KG, empresa: $empresa, articulos: $articulosStr, Creado: ${createdAt.toIso8601String()}';*/
+    return 'Remision NO: $id, ciudad: $ciudad, transportador: $transportador, ccTransportador: $ccTransportador, direccion: $direccion, '
+        'placa: $placa, despachado: $despachado, recibido: $recibido, totalPeso: ${totalPeso.toInt()}KG, empresa: $empresa, '
+        'userCC: ${userCC.cc}, articulos: $articulosStr, Creado: ${createdAt.toIso8601String()}';
+  }
 }

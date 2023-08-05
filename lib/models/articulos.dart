@@ -20,4 +20,8 @@ class Articulo {
         cantidad: json['cantidad'],
         descripcion: json['descripcion'],
       );
+  @override
+  String toString() {
+    return 'Articulo material: $material, cantidad: $cantidad, descripcion: $descripcion';
+  }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:grupo_empresarial_r/models/remision.dart';
-import 'package:grupo_empresarial_r/screens/nuevo_prove.dart';
-import 'package:grupo_empresarial_r/screens/proveedores.dart';
+import 'package:gruporv2/models/remision.dart';
+import 'package:gruporv2/screens/nuevo_prove.dart';
+import 'package:gruporv2/screens/proveedores.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 import '../models/usuarios.dart';

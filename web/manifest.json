@@ -1,6 +1,6 @@
 {
-    "name": "grupo_empresarial_r",
-    "short_name": "grupo_empresarial_r",
+    "name": "gruporv2",
+    "short_name": "gruporv2",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

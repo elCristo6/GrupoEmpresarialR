@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grupo_empresarial_r/models/usuarios.dart';
+import 'package:gruporv2/models/usuarios.dart';
 
 import '../services/usuario_service.dart';
 //import 'package:fluttertoast/fluttertoast.dart';

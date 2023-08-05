@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grupo_empresarial_r/models/articulos.dart';
-import 'package:grupo_empresarial_r/models/remision.dart';
-import 'package:grupo_empresarial_r/models/usercc.dart';
+import 'package:gruporv2/models/articulos.dart';
+import 'package:gruporv2/models/remision.dart';
+import 'package:gruporv2/models/usercc.dart';
 
 import '../services/remision_service.dart';
 
@@ -708,7 +708,7 @@ class _MiFormularioState extends State<MiFormulario> {
                         child: Row(
                           children: [
                             Text(
-                              '$totalCantidad kg',
+                              '${totalCantidad.toInt()} kg',
                               style: const TextStyle(
                                 fontSize: 25,
                                 color: Colors.black,
