@@ -1,4 +1,4 @@
-package com.example.gruporv2
+package com.gruporv2
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -275,7 +275,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                                   children: [
                                     Text(
                                       //usuario.createdAt.substring(5, 7),
-                                      DateFormat('MMMM', 'es')
+                                      DateFormat('MMM', 'es')
                                           .format(remision.createdAt),
                                       textAlign: TextAlign.right,
                                       style: const TextStyle(

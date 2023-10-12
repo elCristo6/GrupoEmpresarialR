@@ -74,7 +74,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
     remisiones.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     var fecha = remisiones[0].createdAt;
     return {
-      'mes': DateFormat('MMMM', 'es').format(fecha),
+      'mes': DateFormat('MMM', 'es').format(fecha),
       'dia': DateFormat('dd').format(fecha)
     };
   }
