@@ -225,9 +225,9 @@ class _proveedor_screenState extends State<proveedor_screen> {
                             globalPosition.dy + 1,
                           ),
                           items: <PopupMenuEntry>[
-                            PopupMenuItem(
+                            const PopupMenuItem(
                               value: 1,
-                              child: const Row(
+                              child: Row(
                                 children: [
                                   Icon(Icons.print),
                                   SizedBox(width: 10),
@@ -235,9 +235,9 @@ class _proveedor_screenState extends State<proveedor_screen> {
                                 ],
                               ),
                             ),
-                            PopupMenuItem(
+                            const PopupMenuItem(
                               value: 2,
-                              child: const Row(
+                              child: Row(
                                 children: [
                                   Icon(Icons.qr_code_2),
                                   SizedBox(width: 10),

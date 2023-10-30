@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gruporv2/screens/AdministradorGeneral.dart';
 //import 'package:grupo_empresarial_r/screens/ejemploProveedores.dart';
 //import 'package:flutter/services.dart';
 import 'package:gruporv2/screens/prove_admin.dart';
@@ -167,25 +168,31 @@ class _MyHomePageState extends State<MyHomePage> {
                               int.parse(_userInput.text), _passInput.text)
                           .then((mensaje) {
                         if (mensaje.userType == "admin") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const UsuarioScreen()),
-                          );
+                          if (mensaje.name == "Administrador General") {
+                            // Navegar a AdministradorGeneralScreen si el nombre es "Administrador General"
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const adminScreen()),
+                            );
+                          } else {
+                            // Navegar a UsuarioScreen para otros administradores
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const UsuarioScreen()),
+                            );
+                          }
                         } else if (mensaje.userType == "proveedor") {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => proveedor_screen(
-                                    //builder: (context) => provedores(
                                     cc: mensaje.cc ?? 0,
                                     usuario: mensaje.name ?? ''),
                               ));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(passError);
-                          /*Fluttertoast.showToast(
-                          msg: mensaje.mensaje ?? '',
-                        );*/
                         }
                         _passInput.clear();
                         _userInput.clear();

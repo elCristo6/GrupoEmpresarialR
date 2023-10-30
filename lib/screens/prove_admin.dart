@@ -53,19 +53,6 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
     });
   }
 
-  DateTime? obtenerFechaUltimaRemision(String cc) {
-    var remisionesUsuario = remisionesPorUsuario[cc];
-    if (remisionesUsuario == null || remisionesUsuario.isEmpty) {
-      return null;
-    }
-
-    // Ordenamos las remisiones de más reciente a más antigua
-    remisionesUsuario.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-    // Devolvemos la fecha de la remisión más reciente
-    return remisionesUsuario[0].createdAt;
-  }
-
   Map<String, String> fechaUltimaRemision(String cc) {
     var remisiones = remisionesPorUsuario[cc];
     if (remisiones == null || remisiones.isEmpty) {
@@ -83,7 +70,10 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
     try {
       final usuarios = await UsuarioService.getUsuarios();
       setState(() {
-        _usuarios = usuarios;
+        // Filtrar la lista para excluir al usuario "Administrador General"
+        _usuarios = usuarios
+            .where((usuario) => usuario.name != "Administrador General")
+            .toList();
       });
     } catch (e) {
       // manejar excepción
