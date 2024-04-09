@@ -2,7 +2,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     
     <application
-        android:label="gruporv2"
+        android:label="GrupoEmpresarialR"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

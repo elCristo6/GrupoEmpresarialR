@@ -15,6 +15,7 @@ class _AdminScreenState extends State<adminScreen> {
   final remisionService = RemisionService();
   int totalRemisiones = 0;
   int totalUsuarios = 0;
+  bool _lanzarAlerta = false;
   DateTime ultimaFechaRemision =
       DateTime(2000); // Fecha muy antigua como valor inicial
   String creadorUltimaRemision = 'Desconocido';
@@ -65,15 +66,15 @@ class _AdminScreenState extends State<adminScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,
-        title: Row(
+        title: const Row(
           children: [
             CircleAvatar(
-              backgroundImage: const AssetImage(
+              backgroundImage: AssetImage(
                   'assets/user.png'), // ruta de la imagen de perfil local
               radius: 35, // radio del círculo de la imagen
             ),
-            const SizedBox(width: 60),
-            const Column(
+            SizedBox(width: 60),
+            Column(
               children: [
                 Text(
                   'Tester',
@@ -106,6 +107,24 @@ class _AdminScreenState extends State<adminScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ListTile(
+              title: Text(
+                "Lanzar mensaje de cobro",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: Switch(
+                value: _lanzarAlerta,
+                onChanged: (value) {
+                  setState(() {
+                    _lanzarAlerta = value;
+                  });
+                },
+                activeColor: Theme.of(context).primaryColor,
+              ),
+            ),
             _buildInfoBox(
               title: 'Total Remisiones',
               value: totalRemisiones.toString(),
