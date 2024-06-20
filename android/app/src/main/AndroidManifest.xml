@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    package="com.grupo_empresarial_r">
     <uses-permission android:name="android.permission.INTERNET"/>
     
     <application

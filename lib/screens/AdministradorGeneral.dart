@@ -1,5 +1,8 @@
+// ignore_for_file: file_names, camel_case_types, library_private_types_in_public_api, prefer_const_constructors
+
 import 'package:collection/collection.dart'; // Importa la librería collection
 import 'package:flutter/material.dart';
+import 'package:gruporv2/screens/prove_admin.dart'; // Importa la nueva pantalla
 import 'package:gruporv2/services/remision_service.dart';
 import 'package:gruporv2/services/usuario_service.dart';
 import 'package:intl/intl.dart';
@@ -110,7 +113,7 @@ class _AdminScreenState extends State<adminScreen> {
             ListTile(
               title: Text(
                 "Lanzar mensaje de cobro",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -125,9 +128,18 @@ class _AdminScreenState extends State<adminScreen> {
                 activeColor: Theme.of(context).primaryColor,
               ),
             ),
-            _buildInfoBox(
-              title: 'Total Remisiones',
-              value: totalRemisiones.toString(),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UsuarioScreen()),
+                );
+              },
+              child: _buildInfoBox(
+                title: 'Total Remisiones',
+                value: totalRemisiones.toString(),
+              ),
             ),
             const SizedBox(height: 20),
             _buildInfoBox(

@@ -164,12 +164,12 @@ class nueva_siderur extends StatelessWidget {
                     // Accion para el boton
                   },
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(250, 40)),
+                    minimumSize: WidgetStateProperty.all(const Size(250, 40)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
+                        WidgetStateProperty.all<Color>(Colors.black),
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        WidgetStateProperty.all<Color>(Colors.white),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),

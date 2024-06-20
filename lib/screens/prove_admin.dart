@@ -210,7 +210,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                       ],
                     ),
                     SizedBox(
-                      width: 25,
+                      width: 15,
                     ),
                     Column(
                       children: [
@@ -256,11 +256,11 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 3.0,
+                        vertical: 2.0,
                         horizontal: 6.0,
                       ),
                       child: Container(
-                        height: 70,
+                        height: 90,
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 228, 226, 226),
                           border: Border.all(
@@ -340,7 +340,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                               ),
                             ),
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: Center(
                                 child: Text(
                                   remisionesPorUsuario[usuario.cc.toString()]
@@ -348,7 +348,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                                           .toString() ??
                                       '0',
                                   style: const TextStyle(
-                                    fontSize: 35,
+                                    fontSize: 28,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -368,10 +368,10 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
             onPressed: _navigateToNuevoProve,
             icon: const Icon(Icons.add),
             style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all(const Size(370, 50)),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              minimumSize: WidgetStateProperty.all(const Size(370, 50)),
+              backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+              foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),

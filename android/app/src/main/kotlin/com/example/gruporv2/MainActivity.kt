@@ -1,4 +1,4 @@
-package com.gruporv2
+package com.grupo_empresarial_r
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -52,9 +52,16 @@ class _proveedor_screenState extends State<proveedor_screen> {
   }
 
   Future<void> loadRemisiones() async {
-    // Ahora llamamos al método getRemisiones del servicio.
     List<Remision> loadedRemisiones =
         await remisionService.getRemisiones(widget.cc);
+
+    // Ordenar la lista por número de remisión en orden descendente, manejando valores nulos
+    loadedRemisiones.sort((a, b) {
+      if (a.id == null && b.id == null) return 0;
+      if (a.id == null) return 1;
+      if (b.id == null) return -1;
+      return b.id!.compareTo(a.id!);
+    });
 
     setState(() {
       remisionList = loadedRemisiones;
@@ -140,7 +147,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                       Text(
                         'Historial de remisiones',
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 12,
                           color: Colors.black,
                           height: 1.7, //bajar texto
                           fontWeight: FontWeight.bold,
@@ -169,7 +176,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                           ],
                         ),
                         SizedBox(
-                          width: 60,
+                          width: 50,
                         ),
                         Column(
                           children: [
@@ -185,7 +192,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                           ],
                         ),
                         SizedBox(
-                          width: 60,
+                          width: 40,
                         ),
                         Column(
                           children: [
@@ -256,7 +263,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 3.0, horizontal: 6.0),
+                            vertical: 3.0, horizontal: 7.0),
                         child: Container(
                           height: 70,
                           decoration: BoxDecoration(
@@ -284,13 +291,13 @@ class _proveedor_screenState extends State<proveedor_screen> {
                                         height: 1.5, //bajar texto
                                       ),
                                     ),
-                                    const SizedBox(height: 2),
+                                    const SizedBox(height: 0),
                                     Text(
                                       //usuario.createdAt.substring(8),
                                       DateFormat('dd')
                                           .format(remision.createdAt),
                                       style: const TextStyle(
-                                        fontSize: 25,
+                                        fontSize: 20,
                                         color: Colors.black,
                                         //height: 1.7, //bajar texto
                                         fontWeight: FontWeight.bold,
@@ -301,7 +308,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                               ),
                               const SizedBox(width: 43),
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +316,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                                     Text(
                                       remision.empresa,
                                       style: const TextStyle(
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -324,7 +331,7 @@ class _proveedor_screenState extends State<proveedor_screen> {
                                     // usuario.cc.toString(),
                                     remision.id.toString(),
                                     style: const TextStyle(
-                                      fontSize: 28,
+                                      fontSize: 20,
                                       color: Colors.black,
                                       height: 1.5, //bajar texto
                                       fontWeight: FontWeight.bold,
@@ -344,12 +351,12 @@ class _proveedor_screenState extends State<proveedor_screen> {
                   onPressed: navegaNewRemision,
                   icon: const Icon(Icons.add),
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(370, 50)),
+                    minimumSize: WidgetStateProperty.all(const Size(370, 50)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
+                        WidgetStateProperty.all<Color>(Colors.black),
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        WidgetStateProperty.all<Color>(Colors.white),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),

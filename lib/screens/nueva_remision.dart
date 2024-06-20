@@ -123,9 +123,11 @@ class _MiFormularioState extends State<MiFormulario> {
     'Seleccione una empresa',
     'DIACO S.A',
     'GRUPO REINA',
-    'TERNIUM',
+    'TERNIUM-COOPERMA',
+    'TERNIUM-COREMTERCAM',
     'PAZ DEL RIO',
-    'SIDOC'
+    'SIDOC-COREMTERCAM',
+    'SIDOC-COOPERMA'
   ];
   @override
   Widget build(BuildContext context) {
@@ -737,13 +739,13 @@ class _MiFormularioState extends State<MiFormulario> {
                           },
                           style: ButtonStyle(
                             minimumSize:
-                                MaterialStateProperty.all(const Size(250, 40)),
+                                WidgetStateProperty.all(const Size(250, 40)),
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
+                                WidgetStateProperty.all<Color>(Colors.black),
                             foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
+                                WidgetStateProperty.all<Color>(Colors.white),
+                            shape:
+                                WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),
