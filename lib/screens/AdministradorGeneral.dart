@@ -2,9 +2,9 @@
 
 import 'package:collection/collection.dart'; // Importa la librería collection
 import 'package:flutter/material.dart';
-import 'package:gruporv2/screens/prove_admin.dart'; // Importa la nueva pantalla
-import 'package:gruporv2/services/remision_service.dart';
-import 'package:gruporv2/services/usuario_service.dart';
+import 'package:gruporv3/screens/prove_admin.dart'; // Importa la nueva pantalla
+import 'package:gruporv3/services/remision_service.dart';
+import 'package:gruporv3/services/usuario_service.dart';
 import 'package:intl/intl.dart';
 
 class adminScreen extends StatefulWidget {

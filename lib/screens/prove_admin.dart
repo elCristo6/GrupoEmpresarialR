@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gruporv2/models/remision.dart';
-import 'package:gruporv2/screens/nuevo_prove.dart';
-import 'package:gruporv2/screens/proveedores.dart';
+import 'package:gruporv3/models/remision.dart';
+import 'package:gruporv3/screens/nuevo_prove.dart';
+import 'package:gruporv3/screens/proveedores.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 

@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gruporv2/screens/AdministradorGeneral.dart';
+import 'package:gruporv3/screens/AdministradorGeneral.dart';
 //import 'package:grupo_empresarial_r/screens/ejemploProveedores.dart';
 //import 'package:flutter/services.dart';
-import 'package:gruporv2/screens/prove_admin.dart';
-import 'package:gruporv2/screens/proveedores.dart';
+import 'package:gruporv3/screens/prove_admin.dart';
+import 'package:gruporv3/screens/proveedores.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../services/usuario_service.dart';
