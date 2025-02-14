@@ -486,21 +486,24 @@ class PDFService {
 
       String empresaShort = shortenEmpresaName(remision.empresa);
 
-      if (remision.empresa == 'SIDOC-COREMTERCAM') {
+      if (remision.empresa == 'SIDOC') {
         imageBytes =
             (await rootBundle.load('assets/verde.png')).buffer.asUint8List();
-      } else if (remision.empresa == 'SIDOC-COOPERMA') {
-        imageBytes =
-            (await rootBundle.load('assets/azul.png')).buffer.asUint8List();
-      } else if (remision.empresa == 'TERNIUM-COREMTERCAM') {
+      } else if (remision.empresa == 'PAZ DEL RÍO') {
+        imageBytes = (await rootBundle.load('assets/LogoREDATLANTICO.png'))
+            .buffer
+            .asUint8List();
+      } else if (remision.empresa == 'TERNIUM') {
         imageBytes =
             (await rootBundle.load('assets/verde.png')).buffer.asUint8List();
-      } else if (remision.empresa == 'TERNIUM-COOPERMA') {
-        imageBytes =
-            (await rootBundle.load('assets/azul.png')).buffer.asUint8List();
+      } else if (remision.empresa == 'DIACO') {
+        imageBytes = (await rootBundle.load('assets/LogoREDATLANTICO.png'))
+            .buffer
+            .asUint8List();
       } else {
-        imageBytes =
-            (await rootBundle.load('assets/azul.png')).buffer.asUint8List();
+        imageBytes = (await rootBundle.load('assets/LogoREDATLANTICO.png'))
+            .buffer
+            .asUint8List();
       }
 
       final PdfBitmap image = PdfBitmap(imageBytes);

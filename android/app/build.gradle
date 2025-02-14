@@ -54,9 +54,9 @@ android {
 
     defaultConfig {
         applicationId "com.gruporv3"
-        minSdkVersion 34
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 7
+        versionCode 15
         versionName flutterVersionName
     }
     signingConfigs {
@@ -69,10 +69,14 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
             signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false
+            shrinkResources true
+            
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+              ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
         }
     }
 }

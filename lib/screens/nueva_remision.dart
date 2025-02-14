@@ -121,13 +121,10 @@ class _MiFormularioState extends State<MiFormulario> {
   String selectedOption = 'Seleccione una empresa';
   List<String> options = [
     'Seleccione una empresa',
-    'DIACO S.A',
-    'GRUPO REINA',
-    'TERNIUM-COOPERMA',
-    'TERNIUM-COREMTERCAM',
-    'PAZ DEL RIO',
-    'SIDOC-COREMTERCAM',
-    'SIDOC-COOPERMA'
+    'DIACO',
+    'PAZ DEL RÍO',
+    'TERNIUM',
+    'SIDOC',
   ];
   @override
   Widget build(BuildContext context) {
